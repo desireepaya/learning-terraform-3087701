@@ -1,0 +1,49 @@
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+# Black auto-formats; you don't need to fight style debates.
+
+[tool.isort]
+profile = "black"
+line_length = 100
+py_version = 311
+skip = [".venv", "venv", "env", "build", "dist", ".mypy_cache", "__pycache__"]
+
+[tool.flake8]
+max-line-length = 100
+# E203 & W503 conflict with Black; ignore them
+extend-ignore = ["E203", "W503"]
+# High-signal checks: core errors + Bugbear + soft line cap B950
+select = ["E", "F", "B", "B950"]
+exclude = [
+  ".git", ".venv", "venv", "env", "__pycache__",
+  "build", "dist", ".mypy_cache", ".pytest_cache",
+]
+# per-file-ignores =
+#   tests/*: T201  # Example: allow print() in tests
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+check_untyped_defs = false
+disallow_untyped_defs = false
+warn_unused_ignores = true
+no_implicit_optional = true
+exclude = '(^\.venv/|^venv/|^env/|^build/|^dist/|^tests/fixtures/)'
+# Later, for stricter typing, you can enable:
+# disallow_incomplete_defs = true
+# warn_return_any = true
+# strict = true
+
+[tool.coverage.run]
+branch = true
+source = ["."]
+omit = [
+  "tests/*",
+  "setup.py",
+  "*/__init__.py",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true

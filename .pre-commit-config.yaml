@@ -1,0 +1,79 @@
+# Make hooks behave consistently on your machine and in CI
+minimum_pre_commit_version: "3.5.0"
+default_language_version:
+  python: python3.11
+
+# Skip common build/cache dirs so hooks stay fast
+exclude: >
+  (?x)(
+    ^\.venv/|^venv/|^env/|
+    ^node_modules/|
+    ^\.terraform/|terraform\.tfstate.*|
+    ^dist/|^build/|
+    ^\.mypy_cache/|^\.pytest_cache/|
+    ^\.git/|
+    ^\.secrets\.baseline$
+  )
+
+repos:
+  # --- General hygiene (low-noise, high-value) ---
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-merge-conflict
+      - id: check-added-large-files
+
+  # --- Secrets (defense-in-depth) ---
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        # Use a baseline so we don't get spammed by historical/benign findings
+        args: ["--baseline", ".secrets.baseline"]
+        pass_filenames: false
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.28.0
+    hooks:
+      - id: gitleaks
+
+  # --- Python import sorting then formatting (minimize diffs) ---
+  - repo: https://github.com/pycqa/isort
+    rev: 6.0.1
+    hooks:
+      - id: isort
+        args: ["--profile", "black"]
+
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
+        language_version: python3.11
+
+  # --- Python linting & types (gentle defaults) ---
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.3.0
+    hooks:
+      - id: flake8
+        additional_dependencies: [flake8-bugbear]
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.17.1
+    hooks:
+      - id: mypy
+        # Add stubs you actually use; these two are common.
+        additional_dependencies: [types-requests, types-PyYAML]
+        # If you use boto3, later consider: boto3-stubs[essential]
+
+# Optional: if Terraform is installed, you can add a quick formatter check.
+# - repo: local
+#   hooks:
+#     - id: terraform-fmt
+#       name: terraform fmt
+#       entry: terraform
+#       args: ["fmt", "-check", "-recursive"]
+#       language: system
+#       types: [terraform]
