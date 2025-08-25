@@ -14,10 +14,6 @@ data "aws_ami" "app_ami" {
   owners = ["979382823631"] # Bitnami
 }
 
-data "aws_vpc" "default" {
-  default = true
-}
-
 module "blog_vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
@@ -49,7 +45,7 @@ resource "aws_instance" "blog" {
 module "blog-alb" {
   source = "terraform-aws-modules/alb/aws"
 
-  name    = "my-alb"
+  name    = "blog-alb"
   vpc_id  = module.blog_vpc.vpc_id
   subnets = module.blog_vpc.public_subnets
   security_groups = [module.blog_sg.security_group_id]
