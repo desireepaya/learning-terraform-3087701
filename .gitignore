@@ -1,0 +1,186 @@
+# =========================
+# OS & Editor Noise
+# =========================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# VS Code
+.vscode/
+.history/
+*.code-workspace
+
+# JetBrains
+.idea/
+*.iml
+
+# =========================
+# Terraform
+# =========================
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Vars (often contain secrets)
+*.tfvars
+*.tfvars.json
+*.auto.tfvars
+*.auto.tfvars.json
+
+# Local/backend cache
+.terraform.tfstate.lock.info
+
+# =========================
+# Secrets & Credentials
+# =========================
+# Env files
+.env
+.env.*
+.envrc
+*.env
+*.envrc
+
+# Sensitive file types
+*.pem
+*.key
+*.p12
+*.pfx
+*.p7b
+*.cer
+*.crt
+*.der
+
+# SSH keys
+id_rsa
+id_rsa.*
+id_dsa
+id_ecdsa
+id_ed25519
+id_ed25519.*
+known_hosts
+
+# Cloud provider creds
+.aws/
+.gcloud/
+.azure/
+
+# Generic secret patterns
+secret
+secrets
+secret.*
+secrets.*
+*.secret
+*.secrets
+*credentials*
+*apikey*
+*api_key*
+*token*
+*oauth*
+*password*
+*passwd*
+*service-account*.json
+*service_account*.json
+
+# Kube configs
+kubeconfig
+.kube/
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.pyz
+
+# Environments
+.env/
+.venv/
+venv/
+ENV/
+env/
+venv.bak/
+env.bak/
+
+# Packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytype/
+.pyre/
+.tox/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# IDE helpers
+.pydevproject
+.spyproject/
+
+# =========================
+# Node / JS
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.bun/
+dist/
+build/
+
+# =========================
+# Docker
+# =========================
+.dockerignore
+docker-compose.override.yml
+**/.env.docker*
+
+# =========================
+# Logs & dumps
+# =========================
+*.log
+logs/
+*.pid
+*.seed
+*.dump
+dump.rdb
