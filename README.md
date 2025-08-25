@@ -1,7 +1,7 @@
 # Learning Terraform
 
 # Fork Notes
-This repository is a fork of [Learning Terraform][https://github.com/LinkedInLearning/learning-terraform-3087701].
+This repository is a fork of [Learning Terraform](https://github.com/LinkedInLearning/learning-terraform-3087701).
 
 Additions in this fork:
 - Added `.pre-commit-config.yaml` with security + Python formatting/linting hooks.
