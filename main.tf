@@ -42,8 +42,8 @@ module "blog_autoscaling" {
   image_id      = data.aws_ami.app_ami.id
   instance_type = var.instance_type
 
-  # create_traffic_source_attachment = true
-  # traffic_source_identifier        = module.blog_alb.target_groups["ex-instance"].arn
+  create_traffic_source_attachment = true
+  traffic_source_identifier        = module.blog_alb.target_groups["ex-instance"].arn
   }
 
 module "blog_alb" {
@@ -99,11 +99,11 @@ module "blog_alb" {
       vpc_id            = module.blog_vpc.vpc_id
       create_attachment = false     # <— let the ASG attach itself
     }
-
+  }
   tags = {
     Environment = "dev"  }
   }
-}
+
 
 module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
