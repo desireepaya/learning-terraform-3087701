@@ -1,0 +1,19 @@
+# --- Linting & Formatting ---
+black==24.8.0
+isort==5.13.2
+flake8==7.1.0
+flake8-bugbear==24.8.1
+mypy==1.10.0
+types-requests
+types-PyYAML
+
+# --- Testing ---
+pytest==8.3.2
+pytest-cov==5.0.0
+
+# --- Security / Secrets ---
+detect-secrets==1.4.0
+gitleaks==8.18.4   # requires gitleaks binary in PATH for full use
+
+# --- Pre-commit itself ---
+pre-commit==4.3.0
