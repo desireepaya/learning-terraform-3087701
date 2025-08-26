@@ -52,10 +52,12 @@ module "blog_autoscaling" {
 module "blog_alb" {
   source = "terraform-aws-modules/alb/aws"
 
-  name    = "${var.environment.name}-blog-alb"
-  vpc_id  = module.blog_vpc.vpc_id
-  subnets = module.blog_vpc.public_subnets
+  name_prefix     = "${var.environment.name}-blog-"
+  vpc_id          = module.blog_vpc.vpc_id
+  subnets         = module.blog_vpc.public_subnets
   security_groups = [module.blog_sg.security_group_id]
+
+  enable_deletion_protection = false
 
   # Security Group
   security_group_ingress_rules = {
