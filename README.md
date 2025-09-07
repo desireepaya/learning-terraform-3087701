@@ -1,42 +1,41 @@
-# Learning Terraform
+# Learning Terraform (Refactored for AWS SSO + OIDC)
 
-# Fork Notes
-This repository is a fork of [Learning Terraform](https://github.com/LinkedInLearning/learning-terraform-3087701).
+This repo started as a fork of [Learning Terraform][li_course] by [Josh Samuelson][li_instructor].
+The original course used IAM users with AdministratorAccess and long-lived access keys.
+I refactored the setup to use:
 
-Additions in this fork:
-- Added `.pre-commit-config.yaml` with security + Python formatting/linting hooks.
-- Added `pyproject.toml` for consistent Black/Flake8/isort/mypy settings.
-- Added `requirements-dev.txt` for reproducible developer setup.
-- Added robust `.gitignore` to prevent committing Terraform state or secrets.
+- AWS Identity Center (SSO) for human access
+- Terraform Cloud OIDC → IAM Role for workspace runs
+- Scoped trust policies per environment (dev, qa)
+- Modernized ALB/ASG module wiring (traffic_source_attachments, no target_group_arns)
+- Safer defaults (no deletion protection by default, tagged resources, module version pinning)
 
-These changes are intended to support reproducible, security-focused development.
+## Repo structure
+- `/dev` – dev environment
+- `/qa` – qa environment
+- `/modules/blog` – modularized ALB, ASG, VPC, SG
 
----
-## Original README
-This is the repository for the LinkedIn Learning course Learning Terraform. The full course is available from [LinkedIn Learning][lil-course-url].
-![Learning Terraform][lil-thumbnail-url]
+## How this differs from the course
+- **Security**: no IAM users or static keys
+- **Least privilege**: role trust policies scoped by TFC workspace
+- **Modern modules**: fixed drift from v2019 course to v2025 module inputs
+- **Multi-env**: dev and qa workspaces run independently in Terraform Cloud
 
-Terraform is a DevOps tool for declarative infrastructure—infrastructure as code. It simplifies and accelerates the configuration of cloud-based environments. In this course, instructor Josh Samuelson shows how to use Terraform to configure infrastructure and manage resources with Amazon Web Services (AWS). After demonstrating how to set up AWS for Terraform, Josh covers how Terraform manages your infrastructure, as well as how to use core Terraform commands. He also delves into more advanced topics, including how to leverage code modules from the Terraform registry and how to create your own modules. Upon wrapping up this course, you'll have the knowledge you need to efficiently define and manage infrastructure with this powerful tool.
+## Developer tooling
+I added [pre-commit][precommit] hooks for:
 
-_See the readme file in the main branch for updated instructions and information._
-## Instructions
-This repository has branches for each of the videos in the course. You can use the branch pop up menu in github to switch to a specific branch and take a look at the course at that stage, or you can add `/tree/BRANCH_NAME` to the URL to go to the branch you want to access.
+- **Security**: detect-secrets, gitleaks
+- **Quality**: Black, Flake8, MyPy (Python modules)
+- **Hygiene**: trailing whitespace, YAML checks
 
-## Branches
-The branches are structured to correspond to the videos in the course. The naming convention is `CHAPTER#_MOVIE#`. As an example, the branch named `02_03` corresponds to the second chapter and the third video in that chapter. The code is built sequentally so each branch contains the completed code for that particular video and the starting code can be found in the previous video's branch.
+Terraform Cloud runs don’t invoke local hooks, but I wanted my fork to model
+a secure, professional workflow. The hooks ensure consistent style and prevent
+accidental secret commits when working locally.
 
-The `main` branch contains the starting code for the course and the `final` branch contains the completed code.
+## Original course
+You can find the original materials on [GitHub][li_github].
 
-### Instructor
-
-Josh Samuelson
-
-DevOps Engineer
-
-
-
-Check out my other courses on [LinkedIn Learning](https://www.linkedin.com/learning/instructors/josh-samuelson).
-
-[lil-course-url]: https://www.linkedin.com/learning/learning-terraform-15575129?dApp=59033956
-[lil-thumbnail-url]: https://cdn.lynda.com/course/3087701/3087701-1666200696363-16x9.jpg
-[def]: https://github.com/LinkedInLearning/learning-terraform-3087701
+[li_course]: https://www.linkedin.com/learning/learning-terraform-15575129/learn-terraform-for-your-cloud-infrastructure
+[li_instructor]: https://www.linkedin.com/in/samuelson/?trk=lil_instructor
+[precommit]: https://pre-commit.com/
+[li_github]: https://github.com/LinkedInLearning/learning-terraform-3087701
