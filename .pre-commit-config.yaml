@@ -64,16 +64,4 @@ repos:
     rev: v1.17.1
     hooks:
       - id: mypy
-        # Add stubs you actually use; these two are common.
         additional_dependencies: [types-requests, types-PyYAML]
-        # If you use boto3, later consider: boto3-stubs[essential]
-
-# Optional: if Terraform is installed, you can add a quick formatter check.
-# - repo: local
-#   hooks:
-#     - id: terraform-fmt
-#       name: terraform fmt
-#       entry: terraform
-#       args: ["fmt", "-check", "-recursive"]
-#       language: system
-#       types: [terraform]
