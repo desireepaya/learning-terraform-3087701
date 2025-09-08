@@ -1,10 +1,9 @@
-# Learning Terraform (Refactored for AWS SSO + OIDC)
+# Learning Terraform (Refactored for OIDC)
 
 This repo started as a fork of [Learning Terraform][li_course] by [Josh Samuelson][li_instructor].
 The original course used IAM users with AdministratorAccess and long-lived access keys.
 I refactored the setup to use:
 
-- AWS Identity Center (SSO) for human access
 - Terraform Cloud OIDC → IAM Role for workspace runs
 - Scoped trust policies per environment (dev, qa)
 - Modernized ALB/ASG module wiring (traffic_source_attachments, no target_group_arns)
