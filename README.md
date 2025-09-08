@@ -31,6 +31,8 @@ Terraform Cloud runs don’t invoke local hooks, but I wanted my fork to model
 a secure, professional workflow. The hooks ensure consistent style and prevent
 accidental secret commits when working locally.
 
+Read the full write-up on [my blog][medium].
+
 ## Original course
 You can find the original materials on [GitHub][li_github].
 
@@ -38,3 +40,4 @@ You can find the original materials on [GitHub][li_github].
 [li_instructor]: https://www.linkedin.com/in/samuelson/?trk=lil_instructor
 [precommit]: https://pre-commit.com/
 [li_github]: https://github.com/LinkedInLearning/learning-terraform-3087701
+[medium]: https://medium.com/desido/when-tutorials-drift-updating-a-terraform-course-for-todays-aws-5b3f59079007
